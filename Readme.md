@@ -11,7 +11,6 @@ console interface for the [ghg-online](https://github.com/ghg-online/ghg-online)
 game, but I believe it can be useful for other
 projects as well.
 
-----------------------
 ## Usage
 
 To use the library, the only thing you need to do
@@ -47,19 +46,16 @@ The library support some basic color setting escape
 strings, such as `"\x1b[31m"`. Other escape strings
 are not supported, but they can be detected and not shown.
 
------------------
 ## License
 The library is licensed under GPLv2, the same
 as [ghg-online](https://github.com/ghg-online/ghg-online)
 project.
 
------------------
 ## Contribution
 I believe no one would like to contribute to this
 project, but if you do, you are welcome to do so.
 Leave a issue or pull request, and I will check it.
 
------------------
 ## Contact
 If you have any questions, you can leave an issue
 or contact me via email: `nictheboy@outlook.com`
