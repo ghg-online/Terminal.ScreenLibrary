@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenLibrary", "ScreenLibrary\ScreenLibrary.csproj", "{19EA5A10-924F-4683-8534-F61D1780D5A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenLibraryTests", "ScreenLibraryTests\ScreenLibraryTests.csproj", "{F43A20D9-DC1B-46E2-8101-E6E2218376D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19EA5A10-924F-4683-8534-F61D1780D5A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19EA5A10-924F-4683-8534-F61D1780D5A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19EA5A10-924F-4683-8534-F61D1780D5A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19EA5A10-924F-4683-8534-F61D1780D5A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43A20D9-DC1B-46E2-8101-E6E2218376D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43A20D9-DC1B-46E2-8101-E6E2218376D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43A20D9-DC1B-46E2-8101-E6E2218376D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43A20D9-DC1B-46E2-8101-E6E2218376D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
