@@ -7,7 +7,7 @@
 		<Company>ghg-online</Company>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<PackageVersion>0.1.0-beta</PackageVersion>
+		<PackageVersion>0.1.1-beta</PackageVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageDescription>This is a library for creating a terminal screen with a text-based user interface.</PackageDescription>
 		<PackageReleaseNotes>This is a beta version, and bugs may exist.</PackageReleaseNotes>
@@ -15,11 +15,12 @@
 		<PackageProjectUrl>https://github.com/ghg-online/Terminal.ScreenLibrary</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/ghg-online/Terminal.ScreenLibrary</RepositoryUrl>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="/"/>
-		<None Include="../LICENSE.txt" Pack="true" PackagePath="/"/>
+		<None Include="../README.md" Pack="true" PackagePath="/" />
+		<None Include="../LICENSE.txt" Pack="true" PackagePath="/" />
 	</ItemGroup>
 
 </Project>

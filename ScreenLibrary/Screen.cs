@@ -9,6 +9,7 @@ namespace Terminal.ScreenLibrary
 
         Color defaultForegroundColor;
         Color defaultBackgroundColor;
+        /// <inheritdoc/>
         public Color DefaultForegroundColor
         {
             get => defaultForegroundColor;
@@ -20,6 +21,8 @@ namespace Terminal.ScreenLibrary
                 }
             }
         }
+
+        /// <inheritdoc/>
         public Color DefaultBackgroundColor
         {
             get => defaultBackgroundColor;
@@ -38,24 +41,34 @@ namespace Terminal.ScreenLibrary
         Cursor cursor;
         EscapeSequenceHandler escapeSequenceHandler;
 
+        /// <inheritdoc/>
         public int Width => screenData.Width;
+
+        /// <inheritdoc/>
         public int Height => screenData.Height;
+
+        /// <inheritdoc/>
         public int CursorX
         {
             get => cursor.cursorX;
             set => CursorMoveTo(value, cursor.cursorY);
         }
+
+        /// <inheritdoc/>
         public int CursorY
         {
             get => cursor.cursorY;
             set => CursorMoveTo(cursor.cursorX, value);
         }
+
+        /// <inheritdoc/>
         public int TabSize
         {
             get => cursor.tabSize;
             set { lock (this) cursor.tabSize = value; }
         }
 
+        /// <inheritdoc/>
         public bool NewLineMode
         {
             get => cursor.newLineMode;
@@ -99,6 +112,7 @@ namespace Terminal.ScreenLibrary
             Refresh();
         }
 
+        /// <inheritdoc/>
         public void Refresh()
         {
             lock (this)
@@ -112,6 +126,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void HandleString(string text, bool refresh = true)
         {
             lock (this)
@@ -124,6 +139,7 @@ namespace Terminal.ScreenLibrary
 
         }
 
+        /// <inheritdoc/>
         public void HandleCharacter(char c, bool refresh = true)
         {
             lock (this)
@@ -217,6 +233,7 @@ namespace Terminal.ScreenLibrary
 
         // positive lines: scroll down
         // negative lines: scroll up
+        /// <inheritdoc/>
         public void Scroll(int lines, bool refresh = true)
         {
             if (lines != 0)
@@ -230,6 +247,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void ResetColor()
         {
             lock (this)
@@ -239,6 +257,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void SetForegroundColor(Color color)
         {
             lock (this)
@@ -247,6 +266,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void SetBackgroundColor(Color color)
         {
             lock (this)
@@ -255,6 +275,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void CursorBackward()
         {
             lock (this)
@@ -264,6 +285,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void CursorCarriageReturn()
         {
             lock (this)
@@ -273,6 +295,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void CursorForward()
         {
             lock (this)
@@ -282,6 +305,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void CursorLineFeed()
         {
             lock (this)
@@ -291,6 +315,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void CursorMove(int deltaX, int deltaY)
         {
             lock (this)
@@ -300,6 +325,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void CursorMoveTo(int targetX, int targetY)
         {
             lock (this)
@@ -309,6 +335,7 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public void CursorTab()
         {
             lock (this)

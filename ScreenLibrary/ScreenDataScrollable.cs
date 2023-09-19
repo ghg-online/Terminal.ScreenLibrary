@@ -124,6 +124,7 @@ namespace Terminal.ScreenLibrary
             EnsureScreenDataBigEnough(cell);
         }
 
+        /// <inheritdoc/>
         public ScreenCell this[int x, int y]
         {
             get
@@ -144,10 +145,13 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
         public int Height => height;
 
+        /// <inheritdoc/>
         public int Width => width;
 
+        /// <inheritdoc/>
         public void ExpandHeightDown(int lines, ScreenCell cell)
         {
             if (lines < 0)
@@ -156,6 +160,7 @@ namespace Terminal.ScreenLibrary
             EnsureScreenDataBigEnough(cell);
         }
 
+        /// <inheritdoc/>
         public void ExpandHeightUp(int lines, ScreenCell cell)
         {
             if (lines < 0)
@@ -165,6 +170,7 @@ namespace Terminal.ScreenLibrary
             EnsureScreenDataBigEnough(cell);
         }
 
+        /// <inheritdoc/>
         public void ExpandWidthLeft(int columns, ScreenCell cell)
         {
             if (columns < 0)
@@ -174,6 +180,7 @@ namespace Terminal.ScreenLibrary
             EnsureScreenDataBigEnough(cell);
         }
 
+        /// <inheritdoc/>
         public void ExpandWidthRight(int columns, ScreenCell cell)
         {
             if (columns < 0)

@@ -2,18 +2,25 @@
 
 namespace Terminal.ScreenLibrary
 {
+    /// <inheritdoc/>
     public sealed class ScreenData : IScreenData
     {
         ScreenCell[,] Cells;
 
+        /// <inheritdoc/>
         public int Width => Cells.GetLength(0);
+
+        /// <inheritdoc/>
         public int Height => Cells.GetLength(1);
+
+        /// <inheritdoc/>
         public ScreenCell this[int x, int y]
         {
             get => Cells[x, y];
             set => Cells[x, y] = value;
         }
 
+        /// <inheritdoc/>
         public ScreenData(int width, int height)
         {
             if (width < 0)
@@ -26,11 +33,7 @@ namespace Terminal.ScreenLibrary
                     Cells[x, y] = new ScreenCell();
         }
 
-        /// <summary>
-        /// Expand the screen height, adding lines to the upside.
-        /// </summary>
-        /// <param name="lines">The number of expanded lines</param>
-        /// <exception cref="ArgumentException"></exception>"
+        /// <inheritdoc/>
         public void ExpandHeightUp(int lines, ScreenCell cell)
         {
             if (lines < 0)
@@ -47,11 +50,7 @@ namespace Terminal.ScreenLibrary
             Cells = newCells;
         }
 
-        /// <summary>
-        /// Expand the screen height, adding lines to the downside.
-        /// </summary>
-        /// <param name="lines">The number of expanded lines</param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <inheritdoc/>
         public void ExpandHeightDown(int lines, ScreenCell cell)
         {
             if (lines < 0)
@@ -68,11 +67,7 @@ namespace Terminal.ScreenLibrary
             Cells = newCells;
         }
 
-        /// <summary>
-        /// Expand the screen width, adding columns to the right side.
-        /// </summary>
-        /// <param name="columns">The number of expanded columns</param>
-        /// <exception cref="ArgumentException"></exception>"
+        /// <inheritdoc/>
         public void ExpandWidthRight(int columns, ScreenCell cell)
         {
             if (columns < 0)
@@ -89,11 +84,7 @@ namespace Terminal.ScreenLibrary
             Cells = newCells;
         }
 
-        /// <summary>
-        /// Expand the screen width, adding columns to the left side.
-        /// </summary>
-        /// <param name="columns">The number of expanded columns</param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <inheritdoc/>
         public void ExpandWidthLeft(int columns, ScreenCell cell)
         {
             if (columns < 0)
