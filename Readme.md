@@ -13,8 +13,37 @@ projects as well.
 
 ## Usage
 
-To use the library, the only thing you need to do
-is to implement the `IScreenDriver` interface.
+### Step 1: Install the library
+
+You can install the [NuGet Package](https://www.nuget.org/packages/Terminal.ScreenLibrary/0.1.0-beta)
+with the following command.
+```
+dotnet add package Terminal.ScreenLibrary --version 0.1.0-beta
+```
+
+Also, you can add package reference in 
+your `.csproj` file.
+```
+<PackageReference Include="Terminal.ScreenLibrary" Version="0.1.0-beta" />
+```
+
+All the classes are in the `Terminal.ScreenLibrary` namespace.
+```
+using Terminal.ScreenLibrary;
+```
+
+
+### Step 2: Create a screen driver
+
+[Terminal.ScreenLibrary](https://github.com/ghg-online/Terminal.ScreenLibrary)
+is a library for creating a terminal,
+but it does not provide any display implementation.
+This gives you great flexibility to choose
+your own display implementation.
+
+
+To write a screen driver, the only thing
+you need to do is to implement the `IScreenDriver` interface.
 ```
 public interface IScreenDriver
 {
@@ -35,8 +64,10 @@ to apply the changes when `Update` is called.
 It is promised that when changes need to be shown,
 `Redraw()` will be called.
 
-After implementing the interface, you can create
-a `Screen` object and use it!
+### Step 3: Use it as you like!
+
+Now, you can create
+a `Screen` object and use it as a normal terminal.
 ```
 var screen = new Screen(myScreenDriver, Color.White, Color.Black);
 screen.HandleString("Hello, world!");
