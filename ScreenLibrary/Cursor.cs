@@ -15,6 +15,7 @@ namespace Terminal.ScreenLibrary
         public int tabSize;
         public bool newLineMode;
         public bool cursorVisible;
+        public bool crossLineBackspace;
 
         // for variable scroll:
         // positive lines: scroll down
@@ -43,6 +44,14 @@ namespace Terminal.ScreenLibrary
             scroll = 0;
             if (cursorX > 0)
                 cursorX--;
+            else if(crossLineBackspace)
+            {
+                cursorX = width - 1;
+                if (cursorY > 0)
+                    cursorY--;
+                else
+                    scroll = -1;
+            }
         }
 
         public void CarriageReturn(out int scroll)

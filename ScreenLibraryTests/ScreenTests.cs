@@ -129,6 +129,38 @@ namespace Terminal.ScreenLibrary.Tests
         }
 
         [TestMethod()]
+        [DataRow(true, 0, 0, "", 0, 0, true)]
+        [DataRow(true, 0, 0, "Hello, world!", 13, 0, true)]
+        [DataRow(true, 0, 0, "\nHello, world!", 13, 1, true)]
+        [DataRow(true, 0, 0, "01234567890123456789012345678901234567890123456789012345678901234567890123456789ABC", 3, 1, true)]
+        [DataRow(true, 0, 0, "01234567890123456789012345678901234567890123456789012345678901234567890123456789ABC", 3, 1, true)]
+        [DataRow(true, 0, 0, "a\tb", 9, 0, true)]
+        [DataRow(true, 0, 23, "a\nb\nc", 1, 23, true)]
+        [DataRow(true, 0, 0, "H\ae\al\alo, \aworld!", 13, 0, true)]
+        [DataRow(true, 0, 0, "A\bHello, A\bworld!", 13, 0, true)]
+        [DataRow(true, 0, 0, "Hello, \rworld", 5, 0, true)]
+        [DataRow(true, 0, 0, "\bHello, world!", 12, 1, true)]
+        [DataRow(false, 0, 0, "\bHello, world!", 13, 0, true)]
+        [DataRow(false, 0, 0, "\b\b\b\b\b\b\bHello, world!", 13, 0, true)]
+        [DataRow(true, 0, 0, "01234567890123456789012345678901234567890123456789012345678901234567890123456789ABC\b\b\b\b", 79, 0, true)]
+        [DataRow(false, 0, 0, "01234567890123456789012345678901234567890123456789012345678901234567890123456789ABC\b\b\b\b", 0, 1, true)]
+        public void HandleStringTest4(bool initCrossLineBackspace, int initCursorX, int initCursorY
+            , string str, int assertCursorX, int assertCursorY, bool assertCursorVisible)
+        {
+            FakeDriver driver = new(); // 80x24
+            IScreen screen = new Screen(driver, Color.White, Color.Black)
+            {
+                CursorX = initCursorX,
+                CursorY = initCursorY,
+                CrossLineBackspace = initCrossLineBackspace,
+            };
+            screen.HandleString(str);
+            Assert.AreEqual(assertCursorX, screen.CursorX);
+            Assert.AreEqual(assertCursorY, screen.CursorY);
+            Assert.AreEqual(assertCursorVisible, screen.CursorVisible);
+        }
+
+        [TestMethod()]
         public void RefreshTest()
         {
             FakeDriver driver = new();// 80x24

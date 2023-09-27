@@ -74,6 +74,14 @@ namespace Terminal.ScreenLibrary
         int TabSize { get; set; }
 
         /// <summary>
+        /// Whether the cursor will cross line when backspace.
+        /// </summary>
+        /// <remarks>
+        /// The default value is true, which is not the same as most terminals.
+        /// </remarks>
+        bool CrossLineBackspace { get; set; }
+
+        /// <summary>
         /// Backspaces one column (but not past the beginning of the line)
         /// </summary>
         void CursorBackward();

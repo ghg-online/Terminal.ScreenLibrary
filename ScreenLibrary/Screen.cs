@@ -86,6 +86,13 @@ namespace Terminal.ScreenLibrary
             }
         }
 
+        /// <inheritdoc/>
+        public bool CrossLineBackspace
+        {
+            get => cursor.crossLineBackspace;
+            set => cursor.crossLineBackspace = value;
+        }
+
         /// <summary>
         /// Initialize a screen with the given driver, default foreground color and default background color.
         /// </summary>
@@ -119,6 +126,7 @@ namespace Terminal.ScreenLibrary
                 tabSize = 8,
                 newLineMode = true,
                 cursorVisible = true,
+                crossLineBackspace = true,
             };
             escapeSequenceHandler = null;
             Refresh();
