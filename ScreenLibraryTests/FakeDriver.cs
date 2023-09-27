@@ -8,6 +8,10 @@ namespace Terminal.ScreenLibrary.Tests
 
         ScreenCell[,] Cells;
 
+        public int CursorX { get; private set; }
+        public int CursorY { get; private set; }
+        public bool CursorVisible { get; private set; }
+
         public FakeDriver()
         {
             screenData = new ScreenData(80, 24);
@@ -35,15 +39,22 @@ namespace Terminal.ScreenLibrary.Tests
         public void Update(int x, int y, char c, Color foreground, Color background)
         {
             if (x < 0 || x >= screenData.Width)
-                throw new System.ArgumentOutOfRangeException("x", x, "x must be between 0 and " + screenData.Width);
+                throw new System.ArgumentOutOfRangeException(nameof(x), x, "x must be between 0 and " + screenData.Width);
             if (y < 0 || y >= screenData.Height)
-                throw new System.ArgumentOutOfRangeException("y", y, "y must be between 0 and " + screenData.Height);
+                throw new System.ArgumentOutOfRangeException(nameof(y), y, "y must be between 0 and " + screenData.Height);
             screenData[x, y] = new ScreenCell()
             {
                 Character = c,
                 Foreground = foreground,
                 Background = background
             };
+        }
+
+        public void UpdateCursor(int x, int y, bool show)
+        {
+            CursorX = x;
+            CursorY = y;
+            CursorVisible = show;
         }
     }
 }

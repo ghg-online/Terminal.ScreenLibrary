@@ -52,5 +52,19 @@ namespace Terminal.ScreenLibrary
         /// The background color of the character to be updated.
         /// </param>
         void Update(int x, int y, char c, Color foreground, Color background);
+
+        /// <summary>
+        /// Update the cursor position and visibility.
+        /// </summary>
+        /// <param name="x">
+        /// The x coordinate of the cursor.
+        /// </param>
+        /// <param name="y">
+        /// The y coordinate of the cursor.
+        /// </param>
+        /// <param name="show">
+        /// Whether the cursor should be shown.
+        /// </param>
+        void UpdateCursor(int x, int y, bool show);
     }
 }

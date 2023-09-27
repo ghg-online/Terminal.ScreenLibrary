@@ -75,6 +75,17 @@ namespace Terminal.ScreenLibrary
             set { lock (this) cursor.newLineMode = value; }
         }
 
+        /// <inheritdoc/>
+        public bool CursorVisible
+        {
+            get => cursor.cursorVisible;
+            set
+            {
+                cursor.cursorVisible = value;
+                UpdateCursor();
+            }
+        }
+
         /// <summary>
         /// Initialize a screen with the given driver, default foreground color and default background color.
         /// </summary>
@@ -107,6 +118,7 @@ namespace Terminal.ScreenLibrary
                 cursorForegroundColor = defaultForegroundColor,
                 tabSize = 8,
                 newLineMode = true,
+                cursorVisible = true,
             };
             escapeSequenceHandler = null;
             Refresh();
@@ -122,6 +134,7 @@ namespace Terminal.ScreenLibrary
                 for (int y = 0; y < height; y++)
                     for (int x = 0; x < width; x++)
                         screenDriver.Update(x, y, screenData[x, y]);
+                UpdateCursor();
                 screenDriver.Redraw();
             }
         }
@@ -282,6 +295,7 @@ namespace Terminal.ScreenLibrary
             {
                 cursor.Backward(out int scroll);
                 Scroll(scroll);
+                UpdateCursor();
             }
         }
 
@@ -292,6 +306,7 @@ namespace Terminal.ScreenLibrary
             {
                 cursor.CarriageReturn(out int scroll);
                 Scroll(scroll);
+                UpdateCursor();
             }
         }
 
@@ -302,6 +317,7 @@ namespace Terminal.ScreenLibrary
             {
                 cursor.Forward(out int scroll);
                 Scroll(scroll);
+                UpdateCursor();
             }
         }
 
@@ -312,6 +328,7 @@ namespace Terminal.ScreenLibrary
             {
                 cursor.LineFeed(out int scroll);
                 Scroll(scroll);
+                UpdateCursor();
             }
         }
 
@@ -322,6 +339,7 @@ namespace Terminal.ScreenLibrary
             {
                 cursor.Move(deltaX, deltaY, out int scroll);
                 Scroll(scroll);
+                UpdateCursor();
             }
         }
 
@@ -332,6 +350,7 @@ namespace Terminal.ScreenLibrary
             {
                 cursor.MoveTo(targetX, targetY, out int scroll);
                 Scroll(scroll);
+                UpdateCursor();
             }
         }
 
@@ -342,7 +361,13 @@ namespace Terminal.ScreenLibrary
             {
                 cursor.Tab(out int scroll);
                 Scroll(scroll);
+                UpdateCursor();
             }
+        }
+
+        private void UpdateCursor()
+        {
+            screenDriver.UpdateCursor(cursor.cursorX, cursor.cursorY, cursor.cursorVisible);
         }
     }
 }

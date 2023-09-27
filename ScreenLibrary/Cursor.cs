@@ -14,6 +14,7 @@ namespace Terminal.ScreenLibrary
         public Color cursorBackgroundColor;
         public int tabSize;
         public bool newLineMode;
+        public bool cursorVisible;
 
         // for variable scroll:
         // positive lines: scroll down

@@ -22,6 +22,14 @@ namespace Terminal.ScreenLibrary
         int CursorY { get; set; }
 
         /// <summary>
+        /// Whether the cursor is visible.
+        /// </summary>
+        /// <remarks>
+        /// The default value is true.
+        /// </remarks>
+        bool CursorVisible { get; set; }
+
+        /// <summary>
         /// The default background color.
         /// </summary>
         Color DefaultBackgroundColor { get; set; }
