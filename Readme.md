@@ -18,13 +18,13 @@ projects as well.
 You can install the [NuGet Package](https://www.nuget.org/packages/Terminal.ScreenLibrary/0.1.0-beta)
 with the following command.
 ```
-dotnet add package Terminal.ScreenLibrary --version 0.1.0-beta
+dotnet add package Terminal.ScreenLibrary --version 0.2.0-beta
 ```
 
 Also, you can add package reference in 
 your `.csproj` file.
 ```
-<PackageReference Include="Terminal.ScreenLibrary" Version="0.1.0-beta" />
+<PackageReference Include="Terminal.ScreenLibrary" Version="0.2.0-beta" />
 ```
 
 All the classes are in the `Terminal.ScreenLibrary` namespace.
@@ -51,6 +51,7 @@ public interface IScreenDriver
     int Height { get; }
     void Redraw();
     void Update(int x, int y, char c, Color foreground, Color background);
+    void UpdateCursor(int x, int y, bool show);
 }
 ```
 As you can see, the interface is very simple.
