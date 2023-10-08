@@ -11,14 +11,19 @@ namespace Terminal.ScreenLibrary.Tests
         public int CursorX { get; private set; }
         public int CursorY { get; private set; }
         public bool CursorVisible { get; private set; }
+        public int UpdateCounter { get; private set; }
 
         public FakeDriver()
         {
             screenData = new ScreenData(80, 24);
             Cells = new ScreenCell[80, 24];
+            UpdateCounter = 0;
         }
 
         public ScreenCell this[int x, int y] => Cells[x, y];
+
+        public void ResetUpdateCounter()
+            => UpdateCounter = 0;
 
         public int Width => Cells.GetLength(0);
         public int Height => Cells.GetLength(1);
@@ -48,6 +53,7 @@ namespace Terminal.ScreenLibrary.Tests
                 Foreground = foreground,
                 Background = background
             };
+            UpdateCounter++;
         }
 
         public void UpdateCursor(int x, int y, bool show)

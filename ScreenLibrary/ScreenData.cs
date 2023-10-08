@@ -17,7 +17,28 @@ namespace Terminal.ScreenLibrary
         public ScreenCell this[int x, int y]
         {
             get => Cells[x, y];
-            set => Cells[x, y] = value;
+            set
+            {
+                if (Cells[x, y] != value)
+                {
+                    Cells[x, y] = value;
+                    Cells[x, y].Dirty = true;
+                }
+            }
+        }
+
+        /// <inheritdoc/>
+        public void SetDirty(int x, int y, bool flag)
+        {
+            Cells[x, y].Dirty = flag;
+        }
+
+        /// <inheritdoc/>
+        public void SetDirty(bool flag)
+        {
+            for (int y = 0; y < Height; y++)
+                for (int x = 0; x < Width; x++)
+                    SetDirty(x, y, flag);
         }
 
         /// <inheritdoc/>

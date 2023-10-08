@@ -86,7 +86,22 @@ namespace Terminal.ScreenLibrary
                 Background = DefaultBackground,
                 Foreground = Color.White,
                 Character = ' ',
+                Dirty = true,
             });
+        }
+
+        /// <inheritdoc/>
+        public void SetDirty(int x, int y, bool flag)
+        {
+            screenData.SetDirty(x + xOffset, y + yOffset, flag);
+        }
+
+        /// <inheritdoc/>
+        public void SetDirty(bool flag)
+        {
+            for (int y = 0; y < Height; y++)
+                for (int x = 0; x < Width; x++)
+                    screenData.SetDirty(x + xOffset, y + yOffset, flag);
         }
 
         /// <summary>

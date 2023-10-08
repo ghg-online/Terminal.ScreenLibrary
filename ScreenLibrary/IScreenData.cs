@@ -59,5 +59,19 @@ namespace Terminal.ScreenLibrary
         /// <param name="cell">The cell to fill the new lines with.</param>
         /// <exception cref="ArgumentException"></exception>"
         void ExpandWidthRight(int columns, ScreenCell cell);
+
+        /// <summary>
+        /// Set the dirty flag of a given cell.
+        /// </summary>
+        /// <param name="x">The x coordinate of the cell.</param>
+        /// <param name="y">The y coordinate of the cell.</param>
+        /// <param name="flag">The value to set the dirty flag to.</param>
+        void SetDirty(int x, int y, bool flag);
+
+        /// <summary>
+        /// Reset all the dirty flags of this screen.
+        /// </summary>
+        /// <param name="flag">The value to set the dirty flag to.</param>
+        void SetDirty(bool flag);
     }
 }

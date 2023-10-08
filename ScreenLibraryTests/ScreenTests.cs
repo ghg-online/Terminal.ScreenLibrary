@@ -1,6 +1,7 @@
 ﻿using Terminal.ScreenLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace Terminal.ScreenLibrary.Tests
 {
@@ -49,7 +50,9 @@ namespace Terminal.ScreenLibrary.Tests
                 CursorX = initCursorX,
                 CursorY = initCursorY
             };
+            driver.ResetUpdateCounter();
             screen.HandleString(str);
+            Debug.WriteLine("Update {0} times for {1}", driver.UpdateCounter, str);
             Assert.AreEqual(assertChar, driver[assertX, assertY].Character);
         }
 
@@ -85,7 +88,9 @@ namespace Terminal.ScreenLibrary.Tests
                 CursorX = initCursorX,
                 CursorY = initCursorY
             };
+            driver.ResetUpdateCounter();
             screen.HandleString(str);
+            Debug.WriteLine("Update {0} times for {1}", driver.UpdateCounter, str);
             ScreenCell assertCell = new()
             {
                 Character = assertChar,
@@ -122,7 +127,9 @@ namespace Terminal.ScreenLibrary.Tests
                 CursorX = initCursorX,
                 CursorY = initCursorY
             };
+            driver.ResetUpdateCounter();
             screen.HandleString(str);
+            Debug.WriteLine("Update {0} times for {1}", driver.UpdateCounter, str);
             Assert.AreEqual(assertCursorX, screen.CursorX);
             Assert.AreEqual(assertCursorY, screen.CursorY);
             Assert.AreEqual(assertCursorVisible, screen.CursorVisible);
@@ -154,7 +161,9 @@ namespace Terminal.ScreenLibrary.Tests
                 CursorY = initCursorY,
                 CrossLineBackspace = initCrossLineBackspace,
             };
+            driver.ResetUpdateCounter();
             screen.HandleString(str);
+            Debug.WriteLine("Update {0} times for {1}", driver.UpdateCounter, str);
             Assert.AreEqual(assertCursorX, screen.CursorX);
             Assert.AreEqual(assertCursorY, screen.CursorY);
             Assert.AreEqual(assertCursorVisible, screen.CursorVisible);

@@ -141,7 +141,11 @@ namespace Terminal.ScreenLibrary
                 int height = screenData.Height;
                 for (int y = 0; y < height; y++)
                     for (int x = 0; x < width; x++)
-                        screenDriver.Update(x, y, screenData[x, y]);
+                        if (screenData[x, y].Dirty)
+                        {
+                            screenDriver.Update(x, y, screenData[x, y]);
+                            screenData.SetDirty(x, y, false);
+                        }
                 UpdateCursor();
                 screenDriver.Redraw();
             }
@@ -262,6 +266,7 @@ namespace Terminal.ScreenLibrary
                 lock (this)
                 {
                     screenData.Scroll(0, lines);
+                    screenData.SetDirty(true);
                     if (refresh)
                         Refresh();
                 }
