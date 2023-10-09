@@ -12,6 +12,21 @@ namespace Terminal.ScreenLibrary
     public interface IScreen
     {
         /// <summary>
+        /// The screen driver.
+        /// </summary>
+        IScreenDriver Driver { get; }
+
+        /// <summary>
+        /// Access the screen data directly.
+        /// </summary>
+        IScreenData ScreenData { get; }
+
+        /// <summary>
+        /// Access the buffer data directly.
+        /// </summary>
+        IScreenData BufferData { get; }
+
+        /// <summary>
         /// The x coordinate of the cursor.
         /// </summary>
         int CursorX { get; set; }
@@ -38,6 +53,16 @@ namespace Terminal.ScreenLibrary
         /// The default foreground color.
         /// </summary>
         Color DefaultForegroundColor { get; set; }
+
+        /// <summary>
+        /// The color of the next character.
+        /// </summary>
+        Color ForegroundColor { get; set; }
+
+        /// <summary>
+        /// The background color of the next character.
+        /// </summary>
+        Color BackgroundColor { get; set; }
 
         /// <summary>
         /// The height of the screen.

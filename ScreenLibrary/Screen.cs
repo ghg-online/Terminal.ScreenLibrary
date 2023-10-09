@@ -93,6 +93,38 @@ namespace Terminal.ScreenLibrary
             set => cursor.crossLineBackspace = value;
         }
 
+        /// <inheritdoc/>
+        public Color ForegroundColor
+        {
+            get => cursor.cursorForegroundColor;
+            set => SetForegroundColor(value);
+        }
+
+        /// <inheritdoc/>
+        public Color BackgroundColor
+        {
+            get => cursor.cursorBackgroundColor;
+            set => SetBackgroundColor(value);
+        }
+
+        /// <inheritdoc/>
+        public IScreenDriver Driver
+        {
+            get => screenDriver;
+        }
+
+        /// <inheritdoc/>
+        public IScreenData ScreenData
+        {
+            get => screenData;
+        }
+
+        /// <inheritdoc/>
+        public IScreenData BufferData
+        {
+            get => buffer;
+        }
+
         /// <summary>
         /// Initialize a screen with the given driver, default foreground color and default background color.
         /// </summary>
