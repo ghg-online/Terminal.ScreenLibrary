@@ -107,6 +107,11 @@ namespace Terminal.ScreenLibrary
         bool CrossLineBackspace { get; set; }
 
         /// <summary>
+        /// Whether the cursor is within the screen.
+        /// </summary>
+        bool CursorWithinScreen { get; }
+
+        /// <summary>
         /// Backspaces one column (but not past the beginning of the line)
         /// </summary>
         void CursorBackward();
@@ -192,7 +197,7 @@ namespace Terminal.ScreenLibrary
         void ResetColor();
 
         /// <summary>
-        /// Scroll the screen by given lines
+        /// ScrollData the screen by given lines
         /// </summary>
         /// <param name="lines">Positive number will make the content move up</param>
         /// <param name="refresh">
@@ -203,6 +208,29 @@ namespace Terminal.ScreenLibrary
         /// Positive number will make the content move up.
         /// </remarks>
         void Scroll(int lines, bool refresh = true);
+
+        /// <summary>
+        /// Scroll the screen to ensure CursorY is within the screen
+        /// </summary>
+        /// <remarks>
+        /// After <see cref="Scroll(int, bool)"/>, the Y coordinate of cursor may be out of range.
+        /// Call this method to ensure it is within the screen. When <see cref="HandleCharacter(char, bool)"/>
+        /// or <see cref="HandleString(string, bool)"/> is called, this method will be called automatically.
+        /// </remarks>
+        void EnsureCursorYWithinScreen();
+
+        /// <summary>
+        /// ScrollData the screen by given lines, but not move the cursor
+        /// </summary>
+        /// <param name="lines">Positive number will make the content move up</param>
+        /// <param name="refresh">
+        /// If this is set true (by default), the change will be displaced to the screen
+        /// as soon as it is made.
+        /// </param>
+        /// <remarks>
+        /// Positive number will make the content move up.
+        /// </remarks>
+        void ScrollData(int lines, bool refresh = true);
 
         /// <summary>
         /// Set the background color

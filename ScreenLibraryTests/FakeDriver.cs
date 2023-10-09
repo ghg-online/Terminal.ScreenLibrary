@@ -8,6 +8,10 @@ namespace Terminal.ScreenLibrary.Tests
 
         ScreenCell[,] Cells;
 
+        private bool UpdateCursorAtOnce = true;
+        private int cursorX;
+        private int cursorY;
+        private bool cursorVisible;
         public int CursorX { get; private set; }
         public int CursorY { get; private set; }
         public bool CursorVisible { get; private set; }
@@ -39,6 +43,12 @@ namespace Terminal.ScreenLibrary.Tests
                     Cells[x, y] = screenChar;
                 }
             }
+            if (false == UpdateCursorAtOnce)
+            {
+                CursorX = cursorX;
+                CursorY = cursorY;
+                CursorVisible = cursorVisible;
+            }
         }
 
         public void Update(int x, int y, char c, Color foreground, Color background)
@@ -58,9 +68,18 @@ namespace Terminal.ScreenLibrary.Tests
 
         public void UpdateCursor(int x, int y, bool show)
         {
-            CursorX = x;
-            CursorY = y;
-            CursorVisible = show;
+            if (UpdateCursorAtOnce)
+            {
+                CursorX = x;
+                CursorY = y;
+                CursorVisible = show;
+            }
+            else
+            {
+                cursorX = x;
+                cursorY = y;
+                cursorVisible = show;
+            }
         }
     }
 }

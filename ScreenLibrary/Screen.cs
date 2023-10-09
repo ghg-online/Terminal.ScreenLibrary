@@ -87,6 +87,19 @@ namespace Terminal.ScreenLibrary
         }
 
         /// <inheritdoc/>
+        public bool CursorWithinScreen
+        {
+            get
+            {
+                if (cursor.cursorX < 0) return false;
+                if (cursor.cursorX >= cursor.width) return false;
+                if (cursor.cursorY < 0) return false;
+                if (cursor.cursorY >= cursor.height) return false;
+                return true;
+            }
+        }
+
+        /// <inheritdoc/>
         public bool CrossLineBackspace
         {
             get => cursor.crossLineBackspace;
@@ -218,6 +231,8 @@ namespace Terminal.ScreenLibrary
                  * 
                  */
 
+                EnsureCursorYWithinScreen();
+
                 // escapeSequenceHandler is not null if and only if we are in an escape sequence
                 switch (c)
                 {
@@ -291,7 +306,7 @@ namespace Terminal.ScreenLibrary
         // positive lines: scroll down
         // negative lines: scroll up
         /// <inheritdoc/>
-        public void Scroll(int lines, bool refresh = true)
+        public void ScrollData(int lines, bool refresh = true)
         {
             if (lines != 0)
             {
@@ -303,6 +318,23 @@ namespace Terminal.ScreenLibrary
                         Refresh();
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        public void Scroll(int lines, bool refresh = true)
+        {
+            ScrollData(lines, refresh);
+            cursor.cursorY -= lines;
+            UpdateCursor();
+        }
+
+        /// <inheritdoc/>
+        public void EnsureCursorYWithinScreen()
+        {
+            if (cursor.cursorY < 0)
+                Scroll(cursor.cursorY);
+            if (cursor.cursorY >= cursor.height)
+                Scroll(cursor.cursorY - cursor.height + 1);
         }
 
         /// <inheritdoc/>
@@ -339,7 +371,7 @@ namespace Terminal.ScreenLibrary
             lock (this)
             {
                 cursor.Backward(out int scroll);
-                Scroll(scroll);
+                ScrollData(scroll);
                 UpdateCursor();
             }
         }
@@ -350,7 +382,7 @@ namespace Terminal.ScreenLibrary
             lock (this)
             {
                 cursor.CarriageReturn(out int scroll);
-                Scroll(scroll);
+                ScrollData(scroll);
                 UpdateCursor();
             }
         }
@@ -361,7 +393,7 @@ namespace Terminal.ScreenLibrary
             lock (this)
             {
                 cursor.Forward(out int scroll);
-                Scroll(scroll);
+                ScrollData(scroll);
                 UpdateCursor();
             }
         }
@@ -372,7 +404,7 @@ namespace Terminal.ScreenLibrary
             lock (this)
             {
                 cursor.LineFeed(out int scroll);
-                Scroll(scroll);
+                ScrollData(scroll);
                 UpdateCursor();
             }
         }
@@ -383,7 +415,7 @@ namespace Terminal.ScreenLibrary
             lock (this)
             {
                 cursor.Move(deltaX, deltaY, out int scroll);
-                Scroll(scroll);
+                ScrollData(scroll);
                 UpdateCursor();
             }
         }
@@ -394,7 +426,7 @@ namespace Terminal.ScreenLibrary
             lock (this)
             {
                 cursor.MoveTo(targetX, targetY, out int scroll);
-                Scroll(scroll);
+                ScrollData(scroll);
                 UpdateCursor();
             }
         }
@@ -405,14 +437,16 @@ namespace Terminal.ScreenLibrary
             lock (this)
             {
                 cursor.Tab(out int scroll);
-                Scroll(scroll);
+                ScrollData(scroll);
                 UpdateCursor();
             }
         }
 
         private void UpdateCursor()
         {
-            screenDriver.UpdateCursor(cursor.cursorX, cursor.cursorY, cursor.cursorVisible);
+            bool visible = cursor.cursorVisible && CursorWithinScreen;
+            screenDriver.UpdateCursor(cursor.cursorX, cursor.cursorY, visible);
+            //screenDriver.Redraw();
         }
     }
 }

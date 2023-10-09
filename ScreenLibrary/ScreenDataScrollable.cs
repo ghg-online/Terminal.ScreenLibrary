@@ -105,7 +105,7 @@ namespace Terminal.ScreenLibrary
         }
 
         /// <summary>
-        /// Scroll the screen without lose data of the screen
+        /// ScrollData the screen without lose data of the screen
         /// </summary>
         /// <remarks>
         /// You can imagine that the data of the screen is a big rectangle, and the screen is 
@@ -122,7 +122,7 @@ namespace Terminal.ScreenLibrary
         }
 
         /// <summary>
-        /// Scroll the screen without lose data of the screen
+        /// ScrollData the screen without lose data of the screen
         /// </summary>
         /// <remarks>
         /// You can imagine that the data of the screen is a big rectangle, and the screen is 

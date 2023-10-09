@@ -130,9 +130,9 @@ namespace Terminal.ScreenLibrary.Tests
             driver.ResetUpdateCounter();
             screen.HandleString(str);
             Debug.WriteLine("Update {0} times for {1}", driver.UpdateCounter, str);
-            Assert.AreEqual(assertCursorX, screen.CursorX);
-            Assert.AreEqual(assertCursorY, screen.CursorY);
-            Assert.AreEqual(assertCursorVisible, screen.CursorVisible);
+            Assert.AreEqual(assertCursorX, driver.CursorX);
+            Assert.AreEqual(assertCursorY, driver.CursorY);
+            Assert.AreEqual(assertCursorVisible, driver.CursorVisible);
         }
 
         [TestMethod()]
@@ -164,9 +164,9 @@ namespace Terminal.ScreenLibrary.Tests
             driver.ResetUpdateCounter();
             screen.HandleString(str);
             Debug.WriteLine("Update {0} times for {1}", driver.UpdateCounter, str);
-            Assert.AreEqual(assertCursorX, screen.CursorX);
-            Assert.AreEqual(assertCursorY, screen.CursorY);
-            Assert.AreEqual(assertCursorVisible, screen.CursorVisible);
+            Assert.AreEqual(assertCursorX, driver.CursorX);
+            Assert.AreEqual(assertCursorY, driver.CursorY);
+            Assert.AreEqual(assertCursorVisible, driver.CursorVisible);
         }
 
         [TestMethod()]
@@ -186,7 +186,7 @@ namespace Terminal.ScreenLibrary.Tests
             screen.HandleString("a", false);
             screen.CursorMoveTo(79, 23);
             screen.HandleString("a", false);
-            screen.Scroll(-1, false);
+            screen.ScrollData(-1, false);
             Assert.AreEqual(' ', driver[0, 0].Character);
             Assert.AreEqual(' ', driver[0, 23].Character);
             Assert.AreEqual(' ', driver[79, 0].Character);
@@ -199,7 +199,7 @@ namespace Terminal.ScreenLibrary.Tests
         }
 
         [TestMethod()]
-        public void ScrollTest()
+        public void ScrollDataTest()
         {
             FakeDriver driver = new();// 80x24
             IScreen screen = new Screen(driver, Color.White, Color.Black);
@@ -211,20 +211,20 @@ namespace Terminal.ScreenLibrary.Tests
             screen.HandleString("a", false);
             screen.CursorMoveTo(79, 23);
             screen.HandleString("a", false);
-            screen.Scroll(-1);
+            screen.ScrollData(-1);
             Assert.AreEqual('a', driver[0, 0].Character);
             Assert.AreEqual('a', driver[0, 23].Character);
             Assert.AreEqual('a', driver[79, 0].Character);
             Assert.AreEqual('a', driver[79, 23].Character);
-            screen.Scroll(1);
+            screen.ScrollData(1);
             Assert.AreEqual('a', driver[0, 22].Character);
             Assert.AreEqual('a', driver[79, 22].Character);
-            screen.Scroll(-1);
+            screen.ScrollData(-1);
             Assert.AreEqual('a', driver[0, 0].Character);
             Assert.AreEqual('a', driver[0, 23].Character);
             Assert.AreEqual('a', driver[79, 0].Character);
             Assert.AreEqual('a', driver[79, 23].Character);
-            screen.Scroll(-1);
+            screen.ScrollData(-1);
             Assert.AreEqual('a', driver[0, 1].Character);
             Assert.AreEqual('a', driver[79, 1].Character);
         }
@@ -242,30 +242,85 @@ namespace Terminal.ScreenLibrary.Tests
             screen.HandleString("a");
             screen.CursorMoveTo(79, 23);
             screen.HandleString("a");
-            screen.Scroll(-1);
+            screen.ScrollData(-1);
             screen.CursorMoveTo(0, 0);
             screen.CursorMove(-1, 0);
             Assert.AreEqual('a', driver[0, 0].Character);
             Assert.AreEqual('a', driver[0, 23].Character);
             Assert.AreEqual('a', driver[79, 0].Character);
             Assert.AreEqual('a', driver[79, 23].Character);
-            Assert.AreEqual((0, 0), (screen.CursorX, screen.CursorY));
+            Assert.AreEqual((0, 0), (driver.CursorX, driver.CursorY));
             screen.CursorMove(79, 0);
             screen.CursorMove(1, 0);
-            Assert.AreEqual((79, 0), (screen.CursorX, screen.CursorY));
-            Assert.AreEqual((79, 0), (screen.CursorX, screen.CursorY));
+            Assert.AreEqual((79, 0), (driver.CursorX, driver.CursorY));
+            Assert.AreEqual((79, 0), (driver.CursorX, driver.CursorY));
             Assert.AreEqual('a', driver[0, 0].Character);
             Assert.AreEqual('a', driver[0, 23].Character);
             Assert.AreEqual('a', driver[79, 0].Character);
             Assert.AreEqual('a', driver[79, 23].Character);
             screen.CursorMove(0, 23);
-            Assert.AreEqual((79, 23), (screen.CursorX, screen.CursorY));
+            Assert.AreEqual((79, 23), (driver.CursorX, driver.CursorY));
             screen.CursorMove(0, 1);
-            Assert.AreEqual((79, 23), (screen.CursorX, screen.CursorY));
+            Assert.AreEqual((79, 23), (driver.CursorX, driver.CursorY));
             screen.CursorMove(1, 0);
-            Assert.AreEqual((79, 23), (screen.CursorX, screen.CursorY));
+            Assert.AreEqual((79, 23), (driver.CursorX, driver.CursorY));
             Assert.AreEqual('a', driver[0, 22].Character);
             Assert.AreEqual('a', driver[79, 22].Character);
+        }
+
+        [TestMethod()]
+        public void ScrollTest()
+        {
+            FakeDriver driver = new();// 80x24
+            IScreen screen = new Screen(driver, Color.White, Color.Black);
+            screen.CursorMoveTo(0, 0);
+            screen.HandleString("a");
+            screen.CursorMoveTo(0, 23);
+            screen.HandleString("a");
+            screen.CursorMoveTo(79, 0);
+            screen.HandleString("a");
+            screen.CursorMoveTo(79, 23);
+            screen.HandleString("a");
+            screen.Scroll(-1);
+            Assert.AreEqual('a', driver[0, 0].Character);
+            Assert.AreEqual('a', driver[0, 23].Character);
+            Assert.AreEqual('a', driver[79, 0].Character);
+            Assert.AreEqual('a', driver[79, 23].Character);
+            Assert.AreEqual((0, 24), (driver.CursorX, driver.CursorY));
+            Assert.AreEqual(false, driver.CursorVisible);
+            screen.CursorMoveTo(0, 23);
+            screen.Scroll(-1);
+            Assert.AreEqual(' ', driver[0, 0].Character);
+            Assert.AreEqual(' ', driver[0, 23].Character);
+            Assert.AreEqual(' ', driver[79, 0].Character);
+            Assert.AreEqual(' ', driver[79, 23].Character);
+            Assert.AreEqual('a', driver[0, 1].Character);
+            Assert.AreEqual('a', driver[79, 1].Character);
+            Assert.AreEqual((0, 24), (driver.CursorX, driver.CursorY));
+            Assert.AreEqual(false, driver.CursorVisible);
+            screen.HandleString("b");
+            Assert.AreEqual('a', driver[0, 0].Character);
+            Assert.AreEqual('b', driver[0, 23].Character);
+            Assert.AreEqual('a', driver[79, 0].Character);
+            Assert.AreEqual('a', driver[79, 23].Character);
+            screen.CursorMoveTo(78, 0);
+            screen.Scroll(1);
+            Assert.AreEqual(' ', driver[0, 0].Character);
+            Assert.AreEqual(' ', driver[0, 23].Character);
+            Assert.AreEqual(' ', driver[79, 0].Character);
+            Assert.AreEqual(' ', driver[79, 23].Character);
+            Assert.AreEqual('b', driver[0, 22].Character);
+            Assert.AreEqual('a', driver[79, 22].Character);
+            Assert.AreEqual((78, -1), (driver.CursorX, driver.CursorY));
+            Assert.AreEqual(false, driver.CursorVisible);
+            screen.HandleString("c");
+            Assert.AreEqual('a', driver[0, 0].Character);
+            Assert.AreEqual('b', driver[0, 23].Character);
+            Assert.AreEqual('a', driver[79, 0].Character);
+            Assert.AreEqual('c', driver[78, 0].Character);
+            Assert.AreEqual('a', driver[79, 23].Character);
+            Assert.AreEqual((79, 0), (driver.CursorX, driver.CursorY));
+            Assert.AreEqual(true, driver.CursorVisible);
         }
     }
 }

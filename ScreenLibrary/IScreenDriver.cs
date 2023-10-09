@@ -54,7 +54,8 @@ namespace Terminal.ScreenLibrary
         void Update(int x, int y, char c, Color foreground, Color background);
 
         /// <summary>
-        /// Update the cursor position and visibility.
+        /// Update the cursor position and visibility. This should be applied
+        /// as soon as the method is called, NOT when Redraw() is called.
         /// </summary>
         /// <param name="x">
         /// The x coordinate of the cursor.
