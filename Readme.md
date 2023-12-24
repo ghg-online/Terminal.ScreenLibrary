@@ -63,7 +63,8 @@ resizing is not supported yet.
 `Update` method should updates the screen buffer, but it is not needed
 to apply the changes when `Update` is called.
 It is promised that when changes need to be shown,
-`Redraw()` will be called.
+`Redraw()` will be called. We recommend you to update the cursor 
+position as soon as `UpdateCursor()` is called.
 
 ### Step 3: Use it as you like!
 
@@ -85,9 +86,9 @@ project.
 
 ## Contribution
 I believe no one would like to contribute to this
-project, but if you do, you are welcome to do so.
-Leave a issue or pull request, and I will check it.
+project, but if you do, you are welcomed to do so.
+Leave an issue or a pull request, and I will check it.
 
 ## Contact
-If you have any questions, you can leave an issue
+If you have any question, you can leave an issue
 or contact me via email: `nictheboy@outlook.com`
